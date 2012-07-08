@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+    <!-- Component -->
+    <bean name="oseTestProxy"
+          class="org.krohm.ose.is.proxy.test.impl.TestProxy" />
+          
+    <osgi:service id="oseTestProxyService"
+                  ref="oseTestProxy"
+                  interface="org.krohm.ose.is.api.proxyaction.ProxyAction">
+        <osgi:service-properties>
+            <entry key="main_app" value="oseframework" />
+            <entry key="name" value="oseTestProxy" />
+            <entry key="type" value="ProxyActionPrototype" />
+        </osgi:service-properties>
+    </osgi:service>
+</beans>

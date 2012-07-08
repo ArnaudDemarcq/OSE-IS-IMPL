@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+    <!-- definitions using elements of the osgi namespace can be included
+       in this file. There is no requirement to keep these definitions
+       in a separate file if you do not want to. The rationale for
+       keeping these definitions separate is to facilitate integration
+       testing of the bundle outside of an OSGi container -->
+
+    <!-- THE ENGINE -->
+    <bean id="oseEngine" class="org.krohm.ose.is.blocking.impl.EngineBlockingImpl" />
+    <!-- THE OSGI LISTENERS -->
+    <bean id="componentListener" class="org.krohm.ose.is.osgi.impl.listener.ComponentListener">
+        <property name="engine" ref="oseEngine"/>
+    </bean>
+    <bean id="configuratorListener" class="org.krohm.ose.is.osgi.impl.listener.ConfiguratorListener">
+        <property name="engine" ref="oseEngine"/>
+    </bean>
+    <bean id="packageListener" class="org.krohm.ose.is.osgi.impl.listener.PackageListener">
+        <property name="engine" ref="oseEngine"/>
+    </bean>
+    <bean id="proxyActionListener" class="org.krohm.ose.is.osgi.impl.listener.ProxyActionListener">
+        <property name="engine" ref="oseEngine"/>
+    </bean>
+    <!-- THE LAUNCHERS -->
+    <bean id="xmlLauncher" class="org.krohm.ose.is.xml.impl.deployer.XmlDeployer" init-method="init">
+        <property name="engine" ref="oseEngine"/>
+    </bean>
+    <bean id="EngineGetter" class="org.krohm.ose.is.util.engineutil.EngineGetter" >
+        <property name="engine" ref="oseEngine"/>
+    </bean>
+
+    <osgi:service id="oseEngineService"
+                  ref="oseEngine"
+                  interface="org.krohm.ose.is.api.engine.Engine">
+        <osgi:service-properties>
+            <entry key="main_app" value="oseframework" />
+            <entry key="name" value="oseEngine" />
+            <entry key="type" value="Engine" />
+        </osgi:service-properties>
+    </osgi:service>
+
+    <bean name="oseDefaultComponentXmlConfigurator"
+          class="org.krohm.ose.is.xml.impl.configurator.XmlConfigurator" />
+
+    <osgi:service interface="org.krohm.ose.is.api.configurator.Configurator"
+                  ref="oseDefaultComponentXmlConfigurator">
+        <osgi:service-properties>
+            <entry key="main_app" value="oseframework" />
+            <entry key="name" value="defaultXmlConfigurator" />
+            <entry key="type" value="ComponentConfigurator" />
+        </osgi:service-properties>
+    </osgi:service>
+    <!--  -->
+
+    <bean  id="defaultGroovyDeployer" class="org.krohm.ose.is.groovy.impl.deployer.ActionGroovyDeployer" init-method="init" destroy-method="shutdown">
+        <property name="engine" ref="oseEngine"/>
+        <property name="rootPath" value="custom" />
+    </bean>
+    <!-- The Engine as a MBean for JMX -->
+    <!-- this bean must not be lazily initialized if the exporting is to happend  -->
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="oseIs:name=OseEngine" value-ref="oseEngine"/>
+            </map>
+        </property>
+    </bean>
+
+
+</beans>

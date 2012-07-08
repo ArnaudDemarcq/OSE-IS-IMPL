@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <workflow name="testInternalConfig" threads="1" maxLoop="10" waitLoop="5000" >
+        <action service="logger" message="WE ARE INTERNALLY IN THE TEST WORKFLOW"/>
+        <action service="groovyscripts.PackagedGroovy" message="WE ARE INTERNALLY IN THE TEST WORKFLOW"/>
+    </workflow>
+</config>

@@ -1,0 +1,13 @@
+<workflow>
+    <action service="testAction1"  stringMember="stringValue" intMember="42" notamember="testValue" />
+    <action service="testAction2"  stringMember="stringValue" intMember="42" notamember="testValue" >
+        <testList>key1</testList>
+        <testList>
+            <bla>hop</bla>
+            <bla>hop</bla>
+            <bla>hop</bla>
+            <bla>hop</bla>
+        </testList>
+        <testList attribute="plop" />
+    </action>
+</workflow>

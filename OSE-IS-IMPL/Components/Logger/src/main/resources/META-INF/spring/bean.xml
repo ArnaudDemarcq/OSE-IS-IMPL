@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:osgi="http://www.springframework.org/schema/osgi"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+    <!-- WARNING : definition MUST be made in the correct order as SPRING -->
+    <!-- reads this file with only one thread. Could make deadlocks if    -->
+    <!-- a workflow using a component is loaded before the component is loaded -->
+    <!-- Component -->
+    <bean name="oseLoggerComponent"
+          class="org.krohm.ose.is.component.logger.impl.LoggerImpl" />
+    <osgi:service ref="oseLoggerComponent"
+                  interface="org.krohm.ose.is.api.action.Action">
+        <osgi:service-properties>
+            <entry key="main_app" value="oseframework" />
+            <entry key="name" value="logger" />
+            <entry key="type" value="ComponentPrototype" />
+        </osgi:service-properties>
+    </osgi:service>
+    <!-- Groovy -->
+    <bean name="testGroovyDepoyer"
+          class="org.krohm.ose.is.groovy.impl.deployer.ResourceGroovyDeployer"
+          init-method="init" destroy-method="destroy">
+        <property name="engine" ref="oseEngineService"/>
+        <property name="resourceDescriptors">
+            <list>
+                <bean class="org.krohm.ose.is.groovy.impl.deployer.ResourceDescriptor">
+                    <property name="scriptPath" value="groovyscripts/Dependency.groovy"/>
+                    <property name="targetServiceName" value="not an Action Class, this string will never be used"/>
+                </bean>
+                <bean class="org.krohm.ose.is.groovy.impl.deployer.ResourceDescriptor">
+                    <property name="scriptPath" value="groovyscripts/PackagedGroovy.groovy"/>
+                    <property name="targetServiceName" value="groovyscripts.PackagedGroovy"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    <!-- Workflow -->
+    <bean name="testXmlPackageDepoyer"
+          class="org.krohm.ose.is.xml.impl.deployer.ResourceXmlDeployer"
+          init-method="init" destroy-method="destroy">
+        <property name="engine" ref="oseEngineService"/>
+        <property name="configFile" value="test/testConfig.xml"/>
+    </bean>
+    <!-- External Reference to OSE Engine service, registered in OSGI -->
+    <osgi:reference id="oseEngineService"
+                    interface="org.krohm.ose.is.api.engine.Engine"/>
+
+</beans>
