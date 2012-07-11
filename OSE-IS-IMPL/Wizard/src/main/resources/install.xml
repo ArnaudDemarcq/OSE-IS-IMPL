@@ -33,7 +33,7 @@
             <description>Ose Is Core</description>
             <file targetdir="$INSTALL_PATH/system/ose-is/core" src="${dependencies.dir}/OseIsCore-${ose.is.version}.jar" />
             <file targetdir="$INSTALL_PATH/system/ose-is/core" src="${dependencies.dir}/Workflow-${ose.is.version}.jar" />
-            <file targetdir="$INSTALL_PATH/system/ose-is/webapp" src="${dependencies.dir}/GenericCall-${ose.is.version}.war" />
+            <file targetdir="$INSTALL_PATH/system/ose-is/webapp" src="${dependencies.dir}/GenericCall.war" />
         </pack>
         <pack name="Ose Is Components" preselected="yes" required="yes" parent="OSE-IS">
             <description>Spring Bundles</description>
