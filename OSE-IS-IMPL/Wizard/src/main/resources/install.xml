@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<installation version="1.0">
+    <info>
+        <appname>Wizard of Ose Is</appname>
+        <appversion>1.0.0</appversion>
+        <uninstaller write="no" />
+        <javaversion>1.6</javaversion>
+        <webdir>http://none.empty</webdir>
+        <pack200 />
+    </info>
+    <guiprefs resizable="no" width="480" height="360">
+        <laf name="liquid">
+            <param name="variant" value="windows" />
+            <os family="windows" />
+        </laf>
+    </guiprefs>
+    <locale>
+        <langpack iso3="eng" />
+    </locale>
+    <panels>
+        <panel classname="HelloPanel" />
+        <panel classname="TargetPanel" />
+        <panel classname="InstallPanel" />
+        <panel classname="FinishPanel" />
+    </panels>
+    <packs>
+        <pack name="skeleton" preselected="yes" required="yes" id="OSE-IS">
+            <description>Ose Is skeleton</description>
+            <!-- Static files from the project -->
+            <fileset dir="files"  targetdir="$INSTALL_PATH" />
+        </pack>
+        <pack name="Ose Is Core" preselected="yes" required="yes" parent="OSE-IS">
+            <description>Ose Is Core</description>
+            <file targetdir="$INSTALL_PATH/system/ose-is/core" src="${dependencies.dir}/OseIsCore-${ose.is.version}.jar" />
+            <file targetdir="$INSTALL_PATH/system/ose-is/core" src="${dependencies.dir}/Workflow-${ose.is.version}.jar" />
+            <file targetdir="$INSTALL_PATH/system/ose-is/webapp" src="${dependencies.dir}/GenericCall-${ose.is.version}.war" />
+        </pack>
+        <pack name="Ose Is Components" preselected="yes" required="yes" parent="OSE-IS">
+            <description>Spring Bundles</description>
+        </pack>
+        <pack name="Ose Is Test" preselected="yes" required="no" parent="OSE-IS">
+            <description>Jetty Bundles</description>
+            <file targetdir="$INSTALL_PATH/system/ose-is/test" src="${dependencies.dir}/TestProxy-${ose.is.version}.jar" />
+			<file targetdir="$INSTALL_PATH/system/ose-is/test" src="${dependencies.dir}/Logger-${ose.is.version}.jar" />
+        </pack>
+    </packs>
+</installation>

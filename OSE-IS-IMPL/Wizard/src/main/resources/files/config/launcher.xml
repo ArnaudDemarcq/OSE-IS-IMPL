@@ -1,0 +1,22 @@
+<config>
+    <!-- Various dependencies to be loaded in the correct order -->
+    <bundles-folder folder="system/dependencies/javax"/>
+    <bundles-folder folder="system/dependencies/6"/>
+    <bundles-folder folder="system/dependencies/7"/>
+    <bundles-folder folder="system/dependencies/8"/>
+    <bundles-folder folder="system/dependencies/9"/>
+    <bundles-folder folder="system/dependencies" />
+    <bundles-folder folder="system/spring"/>
+    <bundles-folder folder="system/jetty"/>
+    <bundles-folder folder="system/apachemq"/>
+    <!-- Bundles to be Activated after load -->
+    <bundles-folder folder="system/jetty/start" start="true"/>
+    <bundles-folder folder="system/apachemq/start" start="true"/>
+    <bundles-folder folder="system/spring/start" start="true"/>
+    <bundles-folder folder="system/test" start="true" />
+	<!-- Bundles for Oseis -->
+    <bundles-folder folder="system/ose-is/core" start="true"/>
+	<bundles-folder folder="system/ose-is/component" start="true"/>
+	<bundles-folder folder="system/ose-is/webapp" start="true"/>
+	<bundles-folder folder="system/ose-is/test" start="true"/>
+</config>

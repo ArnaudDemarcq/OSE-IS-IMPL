@@ -10,6 +10,7 @@
         <module>Core</module>
         <module>components</module>
         <module>webapps</module>
+        <module>Wizard</module>
     </modules>
     <build>
         <plugins>

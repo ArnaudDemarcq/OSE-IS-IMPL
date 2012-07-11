@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<workflow name="Sample" lazyInit="false" threads="1" maxLoop="5" waitLoop="1000" >
+		<action service="workflow"  url="http://www.google.com" method="GET"/>
+		<action service="workflow" /> 
+		<!-- <action service="logger"  message="THIS IS  A TEST MESSAGE !!!!!!"/>  -->
+		<action service="workflow" name="plopipon!"/> 
+		<action service="workflow" expression="$value = 14" />
+		<action service="workflow">
+			<condition expression="$value == 12" workflow="test1"/>
+			<default workflow="test2"/>		
+		</action>
+		<action service="workflow" workflow="test3"/>
+	</workflow>
+	
+	<!--
+	<workflow  name="testGroovy2" threads="1" maxLoop="1" waitLoop="1000">
+		<action service="test.PackagedGroovy3" expression="$testNumber = 2" />
+	</workflow>
+	-->
+	
+</config>
