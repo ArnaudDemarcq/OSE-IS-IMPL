@@ -8,8 +8,8 @@
     <name>OseIs Project</name>
     <modules>
         <module>Core</module>
-        <module>components</module>
-        <module>webapps</module>
+        <module>Components</module>
+        <module>Webapps</module>
         <module>Wizard</module>
     </modules>
     <build>
