@@ -154,7 +154,7 @@
     </build>
     <properties>
         <slf4j.version>1.4.3</slf4j.version>
-        <spring.maven.artifact.version>2.5.1</spring.maven.artifact.version>
+        <spring.maven.artifact.version>5.2.0.RELEASE</spring.maven.artifact.version>
         <spring.osgi.version>1.2.0</spring.osgi.version>
         <equinox.ver>3.3.0-v20070530</equinox.ver>
     </properties>
